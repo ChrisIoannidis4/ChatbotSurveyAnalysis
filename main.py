@@ -84,6 +84,8 @@ conf_exp['Odds Ratio'] = odds_ratios
 
 print(conf_exp)
 
+conf_exp = conf_exp.drop(index='const')
+
 plt.figure(figsize=(8, 6))
 plt.errorbar(conf_exp['Odds Ratio'], conf_exp.index, 
              xerr=[conf_exp['Odds Ratio'] - conf_exp['95% CI Lower'], conf_exp['95% CI Upper'] - conf_exp['Odds Ratio']],
@@ -153,7 +155,6 @@ plt.figure(figsize=(8, 6))
 sns.violinplot(x='text_to_speech', y='user_satisfaction', data=responses, palette='Set2')
 plt.xlabel("Text-to-Speech")
 plt.ylabel("User Satisfaction")
-plt.title("Distribution of User Satisfaction by Text-to-Speech Group")
 plt.xticks([0, 1], ['No TTS', 'TTS'])
 plt.show()
 
@@ -174,7 +175,7 @@ grouped_stats['ci_upper_humanlike'] = grouped_stats['mean_humanlike'] + 1.96 * g
 grouped_stats['ci_lower_waiting_time'] = grouped_stats['mean_waiting_time'] - 1.96 * grouped_stats['se_waiting_time']
 grouped_stats['ci_upper_waiting_time'] = grouped_stats['mean_waiting_time'] + 1.96 * grouped_stats['se_waiting_time']
 
-print(grouped_stats)
+print("groupped stats: ", grouped_stats)
 
 # Bar plot with error bars
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
